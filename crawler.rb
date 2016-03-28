@@ -11,7 +11,7 @@ nome_promos = page.xpath("//*[contains(@class,'nonsticky')]/div/div/h3/a") #xpat
 nome_promos.each{|elemento|
           promocoes << Promocao.new(
             elemento.text, #nome
-            elemento.text[/(\S*[,|.]\S{2} )/,1] #preco regex para pegar o preço
+            elemento.text[/[R\$\s*|\s*](\d*[,|.]\d{2})/,1] #preco regex para pegar o preço
           )
 }
 hardmob_pagina1 = %Q({"promocoes":#{promocoes.map { |promo| Hash[promo.each_pair.to_a] }.to_json}})
